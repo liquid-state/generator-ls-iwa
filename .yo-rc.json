@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "Liquid State",
+      "authorEmail": "chris@liquid-state.com",
+      "authorUrl": ""
+    }
+  }
+}
