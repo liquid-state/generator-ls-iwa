@@ -80,7 +80,7 @@ module.exports = class extends Generator {
 
   default() {
     this.composeWith(require.resolve('../prelude'), { projectName: this.props.name });
-    this.composeWith(require.resolve('../examples'));
+    this.composeWith(require.resolve('../examples'), { yarn: this.props.yarn });
   }
 
   writing() {
