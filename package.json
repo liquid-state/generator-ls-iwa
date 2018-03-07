@@ -1,21 +1,17 @@
 {
   "name": "generator-ls-iwa",
   "version": "0.0.0",
-  "description": "A Yeoman generator for creating Liquid State Integrated Web Apps (IWAs)",
-  "homepage": "",
+  "description":
+    "A Yeoman generator for creating Liquid State Integrated Web Apps (IWAs)",
+  "homepage": "https://www.liquid-state.com",
   "author": {
     "name": "Liquid State",
-    "email": "chris@liquid-state.com",
-    "url": ""
+    "email": "dev@liquid-state.com",
+    "url": "https://www.liquid-state.com"
   },
-  "files": [
-    "generators"
-  ],
+  "files": ["generators"],
   "main": "generators/index.js",
-  "keywords": [
-    "",
-    "yeoman-generator"
-  ],
+  "keywords": ["", "yeoman-generator"],
   "devDependencies": {
     "yeoman-test": "^1.7.0",
     "yeoman-assert": "^3.1.0",
@@ -41,23 +37,16 @@
     "prepublish": "nsp check",
     "pretest": "eslint .",
     "precommit": "lint-staged",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "git add"
-    ],
-    "*.json": [
-      "prettier --write",
-      "git add"
-    ]
+    "*.js": ["eslint --fix", "git add"],
+    "*.json": ["prettier --write", "git add"]
   },
   "eslintConfig": {
-    "extends": [
-      "xo",
-      "prettier"
-    ],
+    "extends": ["xo", "prettier"],
     "env": {
       "jest": true,
       "node": true
@@ -71,9 +60,7 @@
         }
       ]
     },
-    "plugins": [
-      "prettier"
-    ]
+    "plugins": ["prettier"]
   },
   "repository": "liquid-state/generator-ls-iwa",
   "license": "MIT"
