@@ -78,6 +78,10 @@ module.exports = class extends Generator {
     }).then(results => Object.assign({}, props, results));
   }
 
+  default() {
+    this.composeWith(require.resolve('../prelude'), { projectName: this.props.name });
+  }
+
   writing() {
     this.fs.copyTpl(
       this.templatePath('package.json.ejs'),
