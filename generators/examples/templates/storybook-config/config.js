@@ -1,6 +1,6 @@
 import React from 'react';
 import { configure, addDecorator, action } from '@storybook/react';
-import { Router } from '../src/routing';
+import { Router } from 'react-router';
 import createMemoryHistory from 'history/createMemoryHistory'
 
 function bindRouting() {
@@ -12,12 +12,18 @@ function bindRouting() {
     history.goBack = action('history.goBack');
     history.goForward = action('history.goForward');
 
-    addDecorator(story => <Router historyFactory={() => history}>{story()}</Router>)
+    addDecorator(story => <Router history={history}>{story()}</Router>);
+
+    return (route) => history.set(route);
 }
 
 function loadStories() {
     require('../stories/index');
 }
 
-bindRouting();
+const setRoute = bindRouting();
 configure(loadStories, module);
+
+export {
+  setRoute
+};

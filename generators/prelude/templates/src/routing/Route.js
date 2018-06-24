@@ -3,11 +3,11 @@ import React, { PureComponent } from 'react';
 import { Route as ReactRoute } from 'react-router-dom';
 
 export default class Route extends PureComponent {
+  static propTypes = ReactRoute.propTypes;
+
   static contextTypes = {
     iwaRouter: PropTypes.object,
   }
-
-  static propTypes = ReactRoute.propTypes
 
   render() {
     let {
