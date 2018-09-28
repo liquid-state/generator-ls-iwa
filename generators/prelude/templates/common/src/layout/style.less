@@ -1,0 +1,46 @@
+@import '~@liquid-state/ui-kit/dist/variables.less';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: @padding-md;
+  padding-top: @padding-lg;
+  min-height: 100vh;
+  min-width: 320px;
+
+  &.lg {
+    @media screen and (min-width: @screen-lg) {
+      justify-content: center;
+      padding: 0;
+    }
+  }
+
+  .bottom-container {
+    margin-top: auto;
+    width: 100%;
+  }
+
+  .fixed-width-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+
+    &:not(.lg) {
+      @media screen and (min-width: @screen-md) {
+        margin: 0 auto;
+        width: 704px;
+      }
+    }
+
+    &.lg {
+      @media screen and (min-width: @screen-lg) {
+        margin: 0 auto;
+        width: 960px;
+        height: 680px;
+        max-height: 680px;
+      }
+    }
+  }
+}
+

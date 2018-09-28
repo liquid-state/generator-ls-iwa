@@ -50,21 +50,14 @@ module.exports = class extends Generator {
         message: 'Is this a private package',
         store: true,
         default: true
-      },
-      {
-        type: 'confirm',
-        name: 'yarn',
-        message: 'Would you like to use yarn with this project?',
-        default: true
       }
     ];
   }
 
   _runGitPrompts(props) {
     let gitRepo = '';
-    const result = this.spawnCommandSync('git', ['remote', 'get-url', 'origin'], {
-      stdio: 'pipe'
-    });
+    const command = ['git', ['remote', 'get-url', 'origin']];
+    const result = this.spawnCommandSync(...command, { stdio: 'pipe' });
     if (result.status === 0) {
       // Git has already been initialised with a remote.
       gitRepo = result.stdout.toString().trim();
@@ -79,8 +72,7 @@ module.exports = class extends Generator {
   }
 
   default() {
-    this.composeWith(require.resolve('../prelude'), { projectName: this.props.name });
-    this.composeWith(require.resolve('../examples'), { yarn: this.props.yarn });
+    this.composeWith(require.resolve('../prelude'));
   }
 
   writing() {
@@ -90,20 +82,18 @@ module.exports = class extends Generator {
       this.props
     );
 
+    // Copy lerna
+    this.fs.copy(this.templatePath('lerna.json'), this.destinationPath('lerna.json'));
+
     // Copy dotfiles.
     this.fs.copy(this.templatePath('dotfiles/.*'), this.destinationPath('.'));
-    // Add react app rewired overrides.
-    this.fs.copy(
-      this.templatePath('config-overrides.js'),
-      this.destinationPath('config-overrides.js')
-    );
   }
 
   install() {
-    if (this.props.yarn) {
-      this.yarnInstall();
-    } else {
-      this.npmInstall();
-    }
+    this.yarnInstall();
+  }
+
+  end() {
+    this.spawnCommandSync('yarn', ['lerna', 'bootstrap']);
   }
 };

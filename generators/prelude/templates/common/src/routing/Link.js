@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import { Link as ReactLink } from 'react-router-dom';
 
 export default class Link extends PureComponent {
-  static propTypes = ReactLink.propTypes
+  static propTypes = ReactLink.propTypes;
 
   static contextTypes = {
     iwaRouter: PropTypes.object,

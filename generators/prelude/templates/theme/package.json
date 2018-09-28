@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "@project/theme",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "unlicensed",
+  "files": ["src/*"]
+}
