@@ -12,5 +12,10 @@ module.exports = class extends Generator {
       this.templatePath('common/**/*'),
       this.destinationPath('packages/common')
     );
+    this.fs.copy(this.templatePath('storybook'), this.destinationPath('.storybook'));
+    this.fs.copy(
+      this.templatePath('storybook/.babelrc'),
+      this.destinationPath('.storybook/.babelrc')
+    );
   }
 };
