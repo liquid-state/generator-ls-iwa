@@ -1,0 +1,43 @@
+{
+  "name": "<%= name %>-iwa",
+  "private": true,
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "main": "src/lib.js",
+  "module": "src/lib.js",
+  "scripts": {
+    "build": "webpack --config ../../webpack.config.js",
+    "start": "webpack-dev-server --config ../../webpack-dev.config.js --port 9000 --open"
+  },
+  "dependencies": {
+    "@liquid-state/iwa-core": "^1",
+    "@liquid-state/iwa-desktop": "^0.2.0",
+    "@liquid-state/iwa-identity": "^1.0.0",
+    "@liquid-state/iwa-keyvalue": "^1.0.1",
+    "@liquid-state/iwa-router": "^1",
+    "@liquid-state/ui-kit": "^0.3",
+    "@project/common": "1.0.0",
+    "@project/theme": "1.0.0",
+    "antd": "^3.2.0",
+    "history": "^4.7.2",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^5.0.0-alpha.9",
+    "redux": "^4.0.0",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-saga": "^0.16.0"
+  },
+  "devDependencies": {
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9"
+  },
+  "iwa": {
+    "title": "<%= title %>"
+  },
+  "theme": "@project/theme"
+}

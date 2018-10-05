@@ -84,6 +84,15 @@ module.exports = class extends Generator {
 
     // Copy lerna
     this.fs.copy(this.templatePath('lerna.json'), this.destinationPath('lerna.json'));
+    // Copy webpack
+    this.fs.copy(
+      this.templatePath('webpack.config.js'),
+      this.destinationPath('webpack.config.js')
+    );
+    this.fs.copy(
+      this.templatePath('webpack-dev.config.js'),
+      this.destinationPath('webpack-dev.config.js')
+    );
 
     // Copy dotfiles.
     this.fs.copy(this.templatePath('dotfiles/.*'), this.destinationPath('.'));
