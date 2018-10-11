@@ -1,4 +1,5 @@
+import { take } from 'redux-saga/effects';
 
-export default function*() {
-  return;
+export default function* () {
+  yield take('NOTHING');
 }

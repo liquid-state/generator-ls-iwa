@@ -15,8 +15,8 @@
     "url": "<%= gitUrl %>"
   },<% } %>
   "scripts": {
-    "lint": "eslint ./packages/*/src --ext .js,.jsx",
-    "lint:fix": "eslint ./packages/*/src --fix --ext .js,.jsx",
+    "lint": "eslint \"./packages/*/src/**/*.{js,jsx}\"",
+    "lint:fix": "yarn run lint --fix",
     "storybook": "start-storybook -p 9001 -c ./.storybook"
   },
   "dependencies": {
