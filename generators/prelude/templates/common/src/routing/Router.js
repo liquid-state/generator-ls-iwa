@@ -14,15 +14,17 @@ class Router extends Component {
   };
 
   getChildContext() {
+    const { router } = this.props;
     return {
-      iwaRouter: this.props.router,
+      iwaRouter: router,
     };
   }
 
   render() {
+    const { children, history } = this.props;
     return (
-      <ReactRouter history={this.props.history}>
-        {this.props.children}
+      <ReactRouter history={history}>
+        {children}
       </ReactRouter>
     );
   }

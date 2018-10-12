@@ -14,9 +14,10 @@ export default class Link extends PureComponent {
       to,
       ...props
     } = this.props;
+    const { context } = this;
 
-    if (this.context.iwaRouter) {
-      to = this.context.iwaRouter.resolve(this.props.to);
+    if (context.iwaRouter) {
+      to = context.iwaRouter.resolve(props.to);
     }
 
     return <ReactLink {...props} to={to} />;
