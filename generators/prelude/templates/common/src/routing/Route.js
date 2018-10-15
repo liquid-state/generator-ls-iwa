@@ -14,9 +14,10 @@ export default class Route extends PureComponent {
       path,
       ...props
     } = this.props;
+    const { context } = this;
 
-    if (this.context.iwaRouter) {
-      path = this.context.iwaRouter.resolve(path);
+    if (context.iwaRouter) {
+      path = context.iwaRouter.resolve(path);
     }
 
     return <ReactRoute {...props} path={path} />;

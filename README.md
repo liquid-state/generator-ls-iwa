@@ -10,8 +10,7 @@ This project uses a monorepo and yarn workspaces, you will need to have yarn ins
 First, install [Yeoman](http://yeoman.io) and generator-ls-iwa using [yarn](https://yarnpkg.com/en/docs/install) (we assume you have pre-installed [node.js](https://nodejs.org/)).
 
 ```bash
-yarn install -g yo
-yarn install -g generator-ls-iwa
+yarn global add yo generator-ls-iwa
 ```
 
 Then generate your new project:
