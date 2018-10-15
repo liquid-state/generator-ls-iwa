@@ -48,8 +48,3 @@ const Application = () => (
 );
 
 ReactDOM.render(<Application />, document.getElementById('root'));
-
-// Enable webpack hot module replacement in dev.
-if (module.hot) {
-  module.hot.accept();
-}
