@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createHashHistory } from 'history';
-import createApp from '@liquid-state/iwa-core';
+import createApp, { Messages } from '@liquid-state/iwa-core';
 import initialise from '@liquid-state/iwa-router';
 import Desktop, { middleware } from '@liquid-state/iwa-desktop';
 import KeyValuePlugin from '@liquid-state/iwa-keyvalue';
@@ -38,6 +38,7 @@ const { router, history } = initialise(app, createHashHistory);
 const { store, runSaga } = configureStore(app, router, history);
 
 runSaga(rootSaga);
+app.communicator.send(Messages.iwa.setReady());
 
 const Application = () => (
   <Provider store={store}>
