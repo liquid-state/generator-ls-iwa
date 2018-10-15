@@ -19,11 +19,6 @@ const configureStore = (app, router, history) => {
     }),
     composeWithDevTools(applyMiddleware(sagaMiddleware, routerMiddleware)),
   );
-  if (module.hot) {
-    module.hot.accept('./reducers', () => {
-      store.replaceReducer(rootReducer);
-    });
-  }
 
   return {
     store,
