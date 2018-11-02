@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { ConnectedRouter as ReactRouter } from 'react-router-redux';
+import { Router as ReactRouter } from 'react-router';
 
 export const IWARouterContext = React.createContext(null);
 
