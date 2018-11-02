@@ -19,6 +19,7 @@ import {
 } from './actions';
 import { initialisationIsComplete, initialisationInProgress } from './reducer';
 
+// Add each of your IWAs here so that they can access credentials.
 const setPermissionsForKey = key => (
   key
     .addWritePermission('iwa', 'login')
@@ -72,7 +73,18 @@ function* initialise() {
   yield put(initialisationBegun());
 
   const app = yield getContext('app');
-  yield call(configureCognito, app, setPermissionsForKey);
+  try {
+    yield call(configureCognito, app, setPermissionsForKey);
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(
+      'Congito is not configured correctly, likely you are missing values from settings or your app config.',
+      e,
+    );
+    yield put(initialisationComplete());
+    return;
+  }
+
 
   const kv = app.use(KeyValuePlugin);
   const idManager = app.use(IdentityPlugin);
