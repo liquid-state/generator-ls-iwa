@@ -1,23 +1,23 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { Link as ReactLink } from 'react-router-dom';
+import { IWARouterContext } from './Router';
 
 export default class Link extends PureComponent {
   static propTypes = ReactLink.propTypes;
 
-  static contextTypes = {
-    iwaRouter: PropTypes.object,
-  }
+  static contextType = IWARouterContext;
 
   render() {
     let {
-      to,
-      ...props
-    } = this.props;
-    const { context } = this;
+      props: {
+        to,
+        ...props
+      },
+      context,
+    } = this;
 
-    if (context.iwaRouter) {
-      to = context.iwaRouter.resolve(to);
+    if (context) {
+      to = context.resolve(to);
     }
 
     return <ReactLink {...props} to={to} />;
