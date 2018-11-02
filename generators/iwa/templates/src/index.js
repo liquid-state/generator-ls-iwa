@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createHashHistory } from 'history';
-import createApp, { Messages } from '@liquid-state/iwa-core';
+import createApp from '@liquid-state/iwa-core';
 import initialise from '@liquid-state/iwa-router';
 import Desktop, { middleware } from '@liquid-state/iwa-desktop';
 import KeyValuePlugin from '@liquid-state/iwa-keyvalue';
 import IdentityPlugin from '@liquid-state/iwa-identity';
-import { Router, Settings } from '@project/common';
+import { Router, Settings, initialisation } from '@project/common';
 import definition from './webapp.json';
 import configureStore from './redux/store';
 import rootSaga from './redux/sagas';
@@ -37,9 +37,6 @@ const { router, history } = initialise(app, createHashHistory);
 // Configure the store, react-router-redux needs history as well.
 const { store, runSaga } = configureStore(app, router, history);
 
-runSaga(rootSaga);
-app.communicator.send(Messages.iwa.setReady());
-
 const Application = () => (
   <Provider store={store}>
     <Router history={history} router={router}>
@@ -48,4 +45,8 @@ const Application = () => (
   </Provider>
 );
 
-ReactDOM.render(<Application />, document.getElementById('root'));
+initialisation.sendSetReadyAndWait(app).then(() => {
+  runSaga(rootSaga);
+  ReactDOM.render(<Application />, document.getElementById('root'));
+});
+

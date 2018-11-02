@@ -5,9 +5,17 @@
   "license": "UNLICENSED",
   "main": "src/index.js",
   "dependencies": {
+    "@liquid-state/iwa-cognito-identity": "^1.1.3",
+    "@liquid-state/iwa-core": "^1.6.1",
+    "@liquid-state/iwa-identity": "^1.1.0",
+    "@liquid-state/iwa-keyvalue": "^1.0.3",
+    "amazon-cognito-identity-js": "^3.0.2",
+    "aws-api-gateway-client": "^0.2.16",
+    "aws-sdk": "^2.347.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1"
+    "react-router-dom": "^4.3.1",
+    "redux-saga": "^0.16.2"
   }
 }
