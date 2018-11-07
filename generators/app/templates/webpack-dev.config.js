@@ -36,13 +36,14 @@ const loadTheme = () => {
 }
 
 const iwaRoot = findIWARoot();
+const packagesRoot = path.dirname(iwaRoot);
 const iwaPkg = require(path.join(iwaRoot, 'package.json'));
 const projectRoot = path.resolve(__dirname);
 
 
 module.exports = {
   entry: [
-    `${iwaRoot}/src/index.js`
+    `${iwaRoot}/src/index.js`,
   ],
   mode: 'development',
   devtool: 'inline-source-map',
@@ -57,7 +58,10 @@ module.exports = {
     rules: [
       {
         test: /jsx?$/,
-        exclude: /node_modules/,
+        include: packagesRoot,
+        exclude: [
+          /node_modules/,
+        ],
         use: {
           loader: "babel-loader",
           options: {

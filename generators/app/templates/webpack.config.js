@@ -4,6 +4,8 @@ const fs = require('fs');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const WebappJSONPlugin = require('./webapp-json-webpack-plugin.js');
+const ZipWebpackPlugin = require('zip-webpack-plugin');
 
 const findIWARoot = (dirName) => {
   const cwd = dirName || process.cwd();
@@ -37,6 +39,7 @@ const loadTheme = () => {
 }
 
 const iwaRoot = findIWARoot();
+const packagesRoot = path.dirname(iwaRoot);
 const iwaPkg = require(path.join(iwaRoot, 'package.json'));
 const projectRoot = path.resolve(__dirname);
 
@@ -54,6 +57,7 @@ module.exports = {
     rules: [
       {
         test: /jsx?$/,
+        include: packagesRoot,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -103,11 +107,15 @@ module.exports = {
     ]
   },
   plugins: [
+    new WebappJSONPlugin(),
     new MiniCSSExtractPlugin(),
     new HtmlWebpackPlugin({
       title: (iwaPkg.iwa && iwaPkg.iwa.title) || 'Liquid State IWA',
       template: path.join(iwaRoot, 'public', 'index.html')
     }),
-    new CleanWebpackPlugin([path.join(iwaRoot, 'dist')])
+    new CleanWebpackPlugin([path.join(iwaRoot, 'dist')]),
+    new ZipWebpackPlugin({
+      filename: (iwaPkg.name) || 'iwa'
+    })
   ]
 }

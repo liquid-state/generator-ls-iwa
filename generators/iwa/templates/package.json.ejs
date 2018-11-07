@@ -6,7 +6,7 @@
   "main": "src/lib.js",
   "module": "src/lib.js",
   "scripts": {
-    "build": "webpack --config ../../webpack.config.js",
+    "build": "webpack --config ../../webpack.config.js && mkdir -p ../../dist && cp dist/*.zip ../../dist",
     "start": "webpack-dev-server --config ../../webpack-dev.config.js --port 9000 --open"
   },
   "dependencies": {
