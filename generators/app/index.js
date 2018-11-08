@@ -93,6 +93,10 @@ module.exports = class extends Generator {
       this.templatePath('webpack-dev.config.js'),
       this.destinationPath('webpack-dev.config.js')
     );
+    this.fs.copy(
+      this.templatePath('webapp-json-webpack-plugin.js'),
+      this.destinationPath('webapp-json-webpack-plugin.js')
+    );
 
     // Copy dotfiles.
     this.fs.copy(this.templatePath('dotfiles/.*'), this.destinationPath('.'));
