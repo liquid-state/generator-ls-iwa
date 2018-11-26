@@ -6,6 +6,7 @@ import './style.less';
 
 export default ({ children, ...props }) => (
   <Button {...props} className="nav-button">
-    {children}<Icon type="right" className="accessory" />
+    {children}
+    <Icon type="right" className="accessory" />
   </Button>
 );
