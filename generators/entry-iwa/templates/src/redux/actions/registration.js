@@ -9,11 +9,10 @@ export const REGISTRATION_VALIDATION_RESEND = 'REGISTRATION_VALIDATION_RESEND';
 
 export const TOU_ACCEPTED = 'TOU_ACCEPTED';
 
-export const personalisationSubmitted = ({ role, usesTdl }) => ({
+export const personalisationSubmitted = (userData) => ({
   type: PERSONALISATION_SUBMITTED,
   payload: {
-    role,
-    usesTdl,
+    ...userData,
   },
 });
 

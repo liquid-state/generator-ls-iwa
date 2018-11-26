@@ -18,28 +18,9 @@ export default Form.create()(({
 
   return (
     <Form onSubmit={handleSubmit}>
-      <strong>I am a:</strong>
+      <strong>Do you like pizza?</strong>
       <Form.Item>
-        {getFieldDecorator('role', {
-          rules: [
-            {
-              required: true,
-              message: 'Please answer this question to continue',
-            },
-          ],
-        })(
-          <Radio.Group>
-            <Radio value="doctor">Doctor</Radio>
-            <Radio value="pathologist">Pathologist</Radio>
-            <Radio value="nurse">Nurse</Radio>
-            <Radio value="other">Other healthcare professional</Radio>
-            <Radio value="none">None of the above</Radio>
-          </Radio.Group>,
-        )}
-      </Form.Item>
-      <strong>I use testing services provided by The Doctors Laboratory:</strong>
-      <Form.Item>
-        {getFieldDecorator('usesTdl', {
+        {getFieldDecorator('likePizza', {
           rules: [
             {
               required: true,
@@ -50,7 +31,27 @@ export default Form.create()(({
           <Radio.Group>
             <Radio value="yes">Yes</Radio>
             <Radio value="no">No</Radio>
-          </Radio.Group>,
+          </Radio.Group>
+        )}
+      </Form.Item>
+      <strong>My favourite topping is</strong>
+      <Form.Item>
+        {getFieldDecorator('topping', {
+          rules: [
+            {
+              required: true,
+              message: 'Please answer this question to continue',
+            },
+          ],
+        })(
+          <Radio.Group>
+            <Radio value="ham">Ham</Radio>
+            <Radio value="pepperoni">Pepperoni</Radio>
+            <Radio value="capsicum">Capsicum</Radio>
+            <Radio value="anchovies">Anchovies</Radio>
+            <Radio value="pinapple">Pineapple</Radio>
+            <Radio value="none">None of the above</Radio>
+          </Radio.Group>
         )}
       </Form.Item>
       <PinnedToBottom>

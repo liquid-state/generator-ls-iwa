@@ -1,15 +1,11 @@
-import welcome from './Welcome.jpg';
-import value from './Value.jpg';
-import personalise from './Personalisation.jpg';
-import register from './Register.jpg';
-import terms from './Terms.jpg';
-import vials from './vials-animation.svg';
+import placeholder from './placeholder.png';
+import loading from './loading.png';
 
 export {
-  welcome,
-  value,
-  personalise,
-  register,
-  terms,
-  vials,
+  placeholder as welcome,
+  placeholder as value,
+  placeholder as personalise,
+  placeholder as register,
+  placeholder as terms,
+  loading,
 };
