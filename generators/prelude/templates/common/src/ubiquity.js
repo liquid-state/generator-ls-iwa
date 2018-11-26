@@ -16,7 +16,7 @@ const mapContentForNative = ({ documents, categories }) => ({
 
 export const refreshContent = async (app) => {
   const kv = app.use(KeyValuePlugin);
-  const client = app.use(UbiquityPlugin);
+  const client = await app.use(UbiquityPlugin);
   let content;
   try {
     content = await client.appContent();

@@ -129,7 +129,7 @@ function* doInitialLogin(authenticator, idp) {
 }
 
 function* finaliseRegistration(app, cognitoIdentity) {
-  const ubiquityClient = app.use(UbiquityPlugin);
+  const ubiquityClient = yield call(app.use, UbiquityPlugin);
   try {
     yield call(ubiquityClient.register, cognitoIdentity.identifiers.get('sub'));
   } catch (e) {
