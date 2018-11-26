@@ -1,10 +1,18 @@
-import KeyValuePlugin from '@liquid-state/iwa-keyvalue';
+import KeyValuePlugin, { Key } from '@liquid-state/iwa-keyvalue';
 import UbiquityPlugin from '@liquid-state/ubiquity-client/dist/plugin';
 
 const applyPermissions = key => key
   .addWritePermission('iwa', 'entry')
   .addWritePermission('iwa', 'home')
   .addReadPermission('native', 'library');
+
+const mapContentForNative = ({ documents, categories }) => ({
+  iaps: {
+    ios: documents,
+    android: documents,
+  },
+  categories,
+});
 
 export const refreshContent = async (app) => {
   const kv = app.use(KeyValuePlugin);
@@ -17,7 +25,7 @@ export const refreshContent = async (app) => {
     console.error(e);
     throw e;
   }
-  const contentKey = applyPermissions(new Key('app.ubiquity-content', content))
+  const contentKey = applyPermissions(new Key('app.ubiquity-content', content));
   // Also set content for the native document reader.
   const mappedContent = mapContentForNative(content);
   const nativeKey = applyPermissions(new Key('ubiquity.library-content', mappedContent));

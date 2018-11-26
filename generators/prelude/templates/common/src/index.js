@@ -13,5 +13,5 @@ export { default as Settings } from './dev-settings';
 
 export {
   initialisation,
-  ubiquity
+  ubiquity,
 };

@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 import React from 'react';
 import { Form } from 'antd';
 import { Radio } from '@liquid-state/ui-kit';
