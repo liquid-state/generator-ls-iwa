@@ -10,8 +10,8 @@ import {
 } from 'redux-saga/effects';
 import { Messages } from '@liquid-state/iwa-core';
 import IdentityPlugin from '@liquid-state/iwa-identity';
+import UbiquityPlugin from '@liquid-state/ubiquity-client/dist/plugin';
 import { message } from 'antd';
-import { ubiquity } from '@project/common';
 import { getAuthenticator } from '@liquid-state/iwa-cognito-identity';
 import {
   registrationSuccess,
@@ -56,8 +56,7 @@ function* onRegistrationSubmitted(action) {
     }
   }
   const identity = yield call(doInitialLogin, authenticator, idp);
-  const ubiquityClient = yield call(ubiquity.getClient, app);
-  yield call(finaliseRegistration, ubiquityClient, identity);
+  yield call(finaliseRegistration, app, identity);
   yield call(app.communicator.send.bind(app.communicator), Messages.app.reset());
   yield put(registrationSuccess());
 }
@@ -129,7 +128,8 @@ function* doInitialLogin(authenticator, idp) {
   return yield call(cognito.update.bind(cognito), user.identity, user.credentials);
 }
 
-function* finaliseRegistration(ubiquityClient, cognitoIdentity) {
+function* finaliseRegistration(app, cognitoIdentity) {
+  const ubiquityClient = app.use(UbiquityPlugin);
   try {
     yield call(ubiquityClient.register, cognitoIdentity.identifiers.get('sub'));
   } catch (e) {

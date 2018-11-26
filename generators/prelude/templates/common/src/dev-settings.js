@@ -1,6 +1,9 @@
+const UBIQUITY_COMPANY_TOKEN = 'XXXXXX';
 const UBIQUITY_APP_TOKEN = 'XXXXXX';
 
 export default {
+  app_token: UBIQUITY_APP_TOKEN,
+  company_token: UBIQUITY_COMPANY_TOKEN,
   AWS_USER_POOL_ID: 'XXXX',
   AWS_USER_POOL_CLIENT_ID: 'XXXX',
   AWS_IDENTITY_POOL_ID: 'ap-southeast-2:XXXXX',

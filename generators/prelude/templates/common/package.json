@@ -9,6 +9,7 @@
     "@liquid-state/iwa-core": "^1.6.1",
     "@liquid-state/iwa-identity": "^1.1.0",
     "@liquid-state/iwa-keyvalue": "^1.0.3",
+    "@liquid-state/ubiquity-client": "^0.1.3",
     "@liquid-state/ui-kit": "^0.3.14",
     "antd": "^3.10.9",
     "amazon-cognito-identity-js": "^3.0.2",

@@ -8,6 +8,7 @@ import initialise from '@liquid-state/iwa-router';
 import Desktop, { middleware } from '@liquid-state/iwa-desktop';
 import KeyValuePlugin from '@liquid-state/iwa-keyvalue';
 import IdentityPlugin from '@liquid-state/iwa-identity';
+import UbiquityPlugin from '@liquid-state/ubiquity-client/dist/plugin';
 import { Router, Settings, initialisation } from '@project/common';
 import definition from './webapp.json';
 import configureStore from './redux/store';
@@ -29,6 +30,7 @@ const instanciateApp = () => {
     : createDevApp();
   app.plugin(KeyValuePlugin.configure());
   app.plugin(IdentityPlugin.configure());
+  app.plugin(UbiquityPlugin.configure());
   return app;
 };
 

@@ -1,4 +1,5 @@
 import * as initialisation from './initialisation';
+import * as ubiquity from './ubiquity';
 
 export { Router, Route, Link } from './routing';
 export {
@@ -12,4 +13,5 @@ export { default as Settings } from './dev-settings';
 
 export {
   initialisation,
+  ubiquity
 };
