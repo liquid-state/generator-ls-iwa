@@ -1,4 +1,3 @@
-'use strict';
 const Generator = require('yeoman-generator');
 const yosay = require('yosay');
 const updateStoriesConfig = require('../../utils/stories');
@@ -7,56 +6,41 @@ module.exports = class extends Generator {
   prompting() {
     this.log(
       yosay(
-        'This generator will create a new IWA in your Liquid State IWA monorepo project'
+        'This generator will create a basic entry (login + registration) IWA using aws cognito.'
       )
     );
 
     return this.prompt([
       {
         type: 'input',
-        name: 'name',
-        message: 'Your new IWA name (This should be a short slug)',
-        store: true
-      },
-      {
-        type: 'input',
         name: 'title',
         message: 'Enter the default html title for your IWA',
-        default: 'Liquid State IWA',
-        store: true
+        default: 'Entry'
       }
-      // eslint-disable-next-line no-return-assign
     ]).then(props => (this.props = props));
   }
 
   writing() {
-    const path = dir => this.destinationPath(`packages/${this.props.name}-iwa/${dir}`);
+    const path = dir => this.destinationPath(`packages/entry-iwa/${dir}`);
 
     this.fs.copy(this.templatePath('public'), path('public'));
     this.fs.copy(this.templatePath('src'), path('src'));
 
     this.fs.copyTpl(
-      this.templatePath('stories/index.js'),
+      this.templatePath('stories/index.ejs'),
       path('stories/index.js'),
       this.props
     );
-
     this.fs.copyTpl(
       this.templatePath('package.json.ejs'),
       path('package.json'),
       this.props
     );
-    this.fs.copyTpl(
-      this.templatePath('webapp.json.ejs'),
-      path('src/webapp.json'),
-      this.props
-    );
 
-    // Update the list of imported stories by reading the current file and applying a code transform.
     updateStoriesConfig(
       this.fs,
       this.destinationPath('./.storybook/config.js'),
-      `${this.props.name}-iwa`
+      'entry-iwa'
     );
   }
 

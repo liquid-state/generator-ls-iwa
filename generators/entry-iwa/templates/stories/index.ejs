@@ -1,0 +1,41 @@
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+
+import '../src/style.less';
+
+import Entry from '../src/pages/Entry';
+
+import Welcome from '../src/pages/Welcome';
+import ValueStatement from '../src/pages/ValueStatement';
+import { Personalise } from '../src/pages/Personalise';
+import { RegisterForm } from '../src/pages/Register';
+import { TermsAndConditions } from '../src/pages/TermsAndConditions';
+import { Verification } from '../src/pages/Verification';
+
+import { Login } from '../src/pages/Login/Login';
+import { ChangePassword } from '../src/pages/Login/ChangePassword';
+
+import { RecoveryCode } from '../src/pages/PasswordRecovery/Code';
+import { RecoveryEmail } from '../src/pages/PasswordRecovery/Email';
+import { RecoveryPassword } from '../src/pages/PasswordRecovery/Password';
+
+storiesOf('<%= title %>/Launch', module)
+  .add('Entry Page', () => <Entry />);
+
+storiesOf('<%= title %>/Registration', module)
+  .add('Welcome', () => <Welcome />)
+  .add('Value Page', () => <ValueStatement />)
+  .add('Personalise', () => <Personalise onSubmit={action('onSubmit')} />)
+  .add('Register', () => <RegisterForm onSubmit={action('onSubmit')} />)
+  .add('Verification', () => <Verification onSubmit={action('onSubmit')} />)
+  .add('Terms And Conditions', () => <TermsAndConditions onAgree={action('onAgree')} />);
+
+storiesOf('<%= title %>/Login', module)
+  .add('Login', () => <Login />)
+  .add('Change Password', () => <ChangePassword />);
+
+storiesOf('<%= title %>/Password Recovery', module)
+  .add('Email', () => <RecoveryEmail />)
+  .add('Code', () => <RecoveryCode />)
+  .add('Password', () => <RecoveryPassword />);

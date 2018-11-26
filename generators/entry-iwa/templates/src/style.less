@@ -1,0 +1,92 @@
+@import "~@project/theme/src/theme.less";
+
+.onboarding {
+  text-align: center;
+
+  img {
+    width: 100%;
+  }
+
+  .bottom-container {
+    padding: @padding-md 0;
+  }
+
+  .ant-btn {
+    text-transform: uppercase;
+  }
+
+  .ant-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+
+    strong {
+      display: block;
+    }
+
+    .ant-radio-group {
+      display: block;
+      margin-left: @padding-md;
+    }
+
+    .ant-radio-wrapper {
+      display: block;
+      height: 30px;
+      line-height: 30px;
+
+      & :not(.ant-radio-checked) .ant-radio-inner {
+        background-color: white;
+      }
+    }
+  }
+
+  .existing-account-link {
+    display: block;
+    text-align: left;
+    margin-top: @padding-xs;
+  }
+}
+
+.toc {
+  .content-padding {
+    padding-bottom: @padding-md;
+  }
+
+  h1, .agree {
+    text-align: center;
+  }
+
+  .agree .ant-btn {
+    min-width: 200px;
+  }
+}
+
+.entry-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: @primary-color;
+
+  .vials-wrapper {
+    height: 192px;
+    width: 192px;
+    border: 1px solid white;
+    border-radius: 50%;
+
+    background-color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    object {
+      height: 120px;
+    }
+  }
+}

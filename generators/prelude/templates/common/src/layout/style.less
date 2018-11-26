@@ -3,8 +3,8 @@
 .container {
   display: flex;
   flex-direction: column;
-  padding: @padding-md;
-  padding-top: @padding-lg;
+  padding: @padding-sm;
+  padding-top: @padding-md;
   min-height: 100vh;
   min-width: 320px;
 
@@ -12,6 +12,21 @@
     @media screen and (min-width: @screen-lg) {
       justify-content: center;
       padding: 0;
+    }
+  }
+
+  &.no-padding {
+    padding: 0;
+  }
+
+  .content-padding {
+    padding: 0 @padding-sm;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    &.vertical {
+      padding-top: @padding-md;
     }
   }
 

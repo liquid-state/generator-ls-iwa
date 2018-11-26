@@ -9,7 +9,8 @@
     "url": "https://www.liquid-state.com"
   },
   "files": [
-    "generators"
+    "generators",
+    "utils"
   ],
   "main": "generators/index.js",
   "keywords": [
