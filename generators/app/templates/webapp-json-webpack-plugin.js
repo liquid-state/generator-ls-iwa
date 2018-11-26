@@ -25,7 +25,7 @@ WebappJSONPlugin.prototype.apply = function (compiler) {
       return;
     }
 
-    if (locales.length) {
+    if (locales.length && iwaModule.actions && iwaModule.actions.presentations) {
       translateActions(iwaModule, locales);
     }
 
@@ -44,9 +44,8 @@ WebappJSONPlugin.prototype.apply = function (compiler) {
 module.exports = WebappJSONPlugin;
 
 function translateActions(iwa, locales) {
-  for (let actionKey in iwa.actions.presentations) {
-    let action = iwa.actions.presentations[actionKey];
-    let title = action.title;
+  for (const action in Object.values(iwa.actions.presentations)) {
+    const title = action.title;
     if (typeof title === 'string') {
       // Title is the translation key.
       // Convert it into an object
