@@ -11,8 +11,8 @@ const storybookBabelPlugin = iwaName => ({ types: t }) => ({
         // Find all string literals contained in its body.
         // If we find the iwaName assume it is being required already
         path.traverse({
-          StringLiteral(path) {
-            if (path.node.value.includes(iwaName)) {
+          StringLiteral(p) {
+            if (p.node.value.includes(iwaName)) {
               found = true;
             }
           }

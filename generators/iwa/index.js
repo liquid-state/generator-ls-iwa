@@ -1,4 +1,3 @@
-'use strict';
 const Generator = require('yeoman-generator');
 const yosay = require('yosay');
 const updateStoriesConfig = require('../../utils/stories');
