@@ -17,7 +17,9 @@ module.exports = class extends Generator {
         message: 'Enter the default html title for your IWA',
         default: 'Entry'
       }
-    ]).then(props => (this.props = props));
+    ]).then(props => {
+      this.props = props;
+    });
   }
 
   writing() {

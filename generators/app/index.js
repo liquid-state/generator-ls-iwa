@@ -1,4 +1,3 @@
-'use strict';
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
@@ -8,14 +7,14 @@ module.exports = class extends Generator {
     // Have Yeoman greet the user.
     this.log(yosay(`Welcome to the ${chalk.green('Liquid State IWA')} generator`));
 
-    return this.prompt(this._getCommonPrompts())
-      .then(this._runGitPrompts.bind(this))
+    return this.prompt(this.getCommonPrompts())
+      .then(this.runGitPrompts.bind(this))
       .then(props => {
         this.props = props;
       });
   }
 
-  _getCommonPrompts() {
+  getCommonPrompts() {
     return [
       {
         type: 'input',
@@ -54,7 +53,7 @@ module.exports = class extends Generator {
     ];
   }
 
-  _runGitPrompts(props) {
+  runGitPrompts(props) {
     let gitRepo = '';
     const command = ['git', ['remote', 'get-url', 'origin']];
     const result = this.spawnCommandSync(...command, { stdio: 'pipe' });
