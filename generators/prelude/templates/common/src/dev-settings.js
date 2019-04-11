@@ -1,6 +1,12 @@
 const UBIQUITY_COMPANY_TOKEN = 'XXXXXX';
 const UBIQUITY_APP_TOKEN = 'XXXXXX';
 
+// If true, redux dev tools will be enabled
+const REDUX_DEBUG = true;
+
+// If true, redux dev tools will use the inline React Dock
+const REDUX_INLINE = false;
+
 export default {
   app_token: UBIQUITY_APP_TOKEN,
   company_token: UBIQUITY_COMPANY_TOKEN,
@@ -15,4 +21,6 @@ export default {
   PIP_ID: 'pip',
   UBIQUITY_PIP_ID: 'ubiquity',
   DOCUMENT_SEARCH_PIP_ID: 'document-search',
+  REDUX_DEBUG,
+  REDUX_INLINE,
 };
