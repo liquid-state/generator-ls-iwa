@@ -15,6 +15,7 @@
     "url": "<%= gitUrl %>"
   },<% } %>
   "scripts": {
+    "build": "lerna run build",
     "lint": "eslint \"./packages/*/src/**/*.{js,jsx}\"",
     "lint:fix": "yarn run lint --fix",
     "storybook": "start-storybook -p 9001 -c ./.storybook"
