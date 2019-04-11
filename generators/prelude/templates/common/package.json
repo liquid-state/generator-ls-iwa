@@ -11,15 +11,18 @@
     "@liquid-state/iwa-keyvalue": "^1.0.3",
     "@liquid-state/ubiquity-client": "^0.1.3",
     "@liquid-state/ui-kit": "^0.3.14",
-    "antd": "^3.10.9",
     "amazon-cognito-identity-js": "^3.0.2",
+    "antd": "^3.10.9",
     "aws-api-gateway-client": "^0.2.16",
     "aws-sdk": "^2.347.0",
     "classnames": "^2.2.6",
+    "hammerjs": "^2.0.8",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
+    "redux-devtools-dock-monitor": "^1.1.3",
+    "redux-devtools-log-monitor": "^1.4.0",
     "redux-saga": "^0.16.2"
   }
 }

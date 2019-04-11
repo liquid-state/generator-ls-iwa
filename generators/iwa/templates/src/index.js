@@ -39,9 +39,12 @@ const { store, runSaga } = configureStore(app, router, history);
 
 const Application = () => (
   <Provider store={store}>
-    <Router history={history} router={router}>
-      <Index />
-    </Router>
+    <Fragment>
+      <Router history={history} router={router}>
+        <Index />
+      </Router>
+      { Settings.REDUX_DEBUG && Settings.REDUX_INLINE ? <DevTools /> : null }
+    </Fragment>
   </Provider>
 );
 
@@ -49,4 +52,3 @@ initialisation.sendSetReadyAndWait(app).then(() => {
   runSaga(rootSaga);
   ReactDOM.render(<Application />, document.getElementById('root'));
 });
-

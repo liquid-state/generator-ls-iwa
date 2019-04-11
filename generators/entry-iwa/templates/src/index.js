@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createHashHistory } from 'history';
@@ -9,7 +9,13 @@ import Desktop, { middleware } from '@liquid-state/iwa-desktop';
 import KeyValuePlugin from '@liquid-state/iwa-keyvalue';
 import IdentityPlugin from '@liquid-state/iwa-identity';
 import UbiquityPlugin from '@liquid-state/ubiquity-client/dist/plugin';
-import { Router, Settings, initialisation } from '@project/common';
+import {
+  DevTools,
+  Router,
+  Settings,
+  initialisation
+} from '@project/common';
+
 import definition from './webapp.json';
 import configureStore from './redux/store';
 import rootSaga from './redux/sagas';
@@ -44,11 +50,14 @@ const i18n = initialiseI18N();
 
 const Application = () => (
   <Provider store={store}>
-    <Router history={history} router={router}>
-      <I18nextProvider i18n={i18n}>
-        <Index />
-      </I18nextProvider>
-    </Router>
+    <Fragment>
+      <Router history={history} router={router}>
+        <I18nextProvider i18n={i18n}>
+          <Index />
+        </I18nextProvider>
+      </Router>
+      { Settings.REDUX_DEBUG && Settings.REDUX_INLINE ? <DevTools /> : null }
+    </Fragment>
   </Provider>
 );
 
