@@ -40,7 +40,9 @@ class LoginForm extends Component {
   };
 
   render() {
-    const { loading, form: { getFieldDecorator } } = this.props;
+    const { loading, form: { getFieldDecorator, getFieldValue, getFieldError } } = this.props;
+    const disableSubmit = typeof getFieldError('username') !== 'undefined' || !getFieldValue('username')
+          || typeof getFieldError('password') !== 'undefined' || !getFieldValue('password');
     return (
       <Form onSubmit={this.handleSubmit} className={loading ? 'loading' : ''}>
         {
@@ -78,7 +80,7 @@ class LoginForm extends Component {
           <Link to="/recovery">Reset your password here</Link>
         </p>
         <PinnedToBottom>
-          <Button stretched type="primary" htmlType="submit" loading={loading}>Sign In</Button>
+          <Button className={disableSubmit ? 'disabled' : ''} stretched type="primary" htmlType="submit" loading={loading}>Sign In</Button>
         </PinnedToBottom>
       </Form>
     );

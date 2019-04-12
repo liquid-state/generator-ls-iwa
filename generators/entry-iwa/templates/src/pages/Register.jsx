@@ -85,11 +85,15 @@ class Register extends React.Component {
     const {
       form: {
         getFieldDecorator,
+        getFieldValue,
+        getFieldError,
       },
       termsAndConditionsAccepted,
       loading,
     } = this.props;
-
+    const disableSubmit = typeof getFieldError('username') !== 'undefined' || !getFieldValue('username')
+          || typeof getFieldError('password') !== 'undefined' || !getFieldValue('password')
+          || typeof getFieldError('confirm') !== 'undefined' || !getFieldValue('confirm');
     return (
       <Container
         fixed
@@ -171,6 +175,7 @@ class Register extends React.Component {
             </Form.Item>
             <PinnedToBottom>
               <Button
+                className={ disableSubmit ? 'disabled' : '' }
                 stretched
                 type="primary"
                 htmlType="submit"

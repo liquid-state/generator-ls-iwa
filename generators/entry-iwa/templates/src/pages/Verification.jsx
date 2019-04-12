@@ -24,59 +24,74 @@ const Verification = ({
   form: {
     validateFieldsAndScroll,
     getFieldDecorator,
+    getFieldError,
+    getFieldValue,
   },
   onSubmit,
   loading,
-}) => (
-  <Container
-    fixed
-    noPadding
-    className="onboarding"
-  >
-    <img src={register} alt="" />
-    <ContentPadding>
-      <h1>Verification</h1>
-      <p>
+  error,
+}) => {
+  const disableSubmit = typeof getFieldError('code') !== 'undefined' || !getFieldValue('code');
+  return (
+    <Container fixed noPadding className="onboarding">
+      <img src={register} alt="" />
+      <ContentPadding>
+        <h1>Verification</h1>
+        <p>
           We&apos;ve sent a verification code to the email you entered in the previous step.
           Please check your email for the code and enter it here once you have it.
-      </p>
-      <Form onSubmit={handleSubmit(validateFieldsAndScroll, onSubmit)}>
-        <Form.Item label="Verification code">
-          {getFieldDecorator('code', {
-            rules: [
-              {
-                required: true,
-                message: 'Your verification code is required to continue',
-              },
-              {
-                len: 6,
-                message: 'Your verification code should be 6 digits in length.',
-              },
-            ],
-          })(
-            <Input
-              placeholder="Enter your verification code"
-              pattern="\d*"
-              inputMode="numeric"
-            />,
-          )}
-        </Form.Item>
-        <PinnedToBottom>
-          <Button stretched type="primary" htmlType="submit" loading={loading}>Register</Button>
-        </PinnedToBottom>
-      </Form>
-    </ContentPadding>
-  </Container>
-);
+        </p>
+        <Form onSubmit={handleSubmit(validateFieldsAndScroll, onSubmit)}>
+          { error ? <Alert type="error" message={error} showIcon /> : null }
+          <Form.Item label="Verification code">
+            {getFieldDecorator('code', {
+              rules: [
+                {
+                  required: true,
+                  message: 'Your verification code is required to continue',
+                },
+                {
+                  len: 6,
+                  pattern: /^[0-9]*$/, // 0-9 only
+                  message: 'Your verification code should be 6 digits in length.',
+                },
+              ],
+              })(
+              <Input
+                maxLength={6}
+                placeholder="Enter your verification code"
+                pattern="\d*"
+                inputMode="numeric"
+                />,
+            )}
+          </Form.Item>
+          <PinnedToBottom>
+            <Button
+              className={disableSubmit ? 'disabled' : ''}
+              stretched
+              type="primary"
+              htmlType="submit"
+              loading={loading}
+            >
+              Register
+            </Button>
+          </PinnedToBottom>
+        </Form>
+      </ContentPadding>
+   </Container>
+  );
+}
 
 Verification.propTypes = {
   form: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool,
+  error: PropTypes.string,
 };
 
 Verification.defaultProps = {
   loading: false,
+  error: null,
 };
 
 const WrappedVerification = Form.create()(Verification);
@@ -87,6 +102,7 @@ export {
 
 const mapState = ({ registration }) => ({
   loading: registration.submitting,
+  error: registration.error,
 });
 
 export default connect(mapState, {
