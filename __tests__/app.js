@@ -2,17 +2,19 @@ const path = require('path');
 const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 
-describe('generator-ls-iwa:app', () => {
-  describe('Default setup', () => {
-    beforeAll(() =>
-      helpers.run(path.join(__dirname, '../generators/app')).withPrompts({
-        yarn: true,
-        name: 'test-project',
-        description: 'test',
-        authorName: 'Chris',
-        authorEmail: 'test@example.com'
-      }));
+jest.setTimeout(20000);
 
+describe('generator-ls-iwa:app', () => {
+  beforeAll(() =>
+    helpers.run(path.join(__dirname, '../generators/app')).withPrompts({
+      yarn: true,
+      name: 'test-project',
+      description: 'test',
+      authorName: 'Chris',
+      authorEmail: 'test@example.com'
+    }));
+
+  describe('Default setup', () => {
     it('creates package.json', () => {
       assert.file(['package.json']);
     });
