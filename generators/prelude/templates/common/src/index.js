@@ -9,6 +9,7 @@ export {
   ContentPadding,
 } from './layout';
 export { default as NavButton } from './NavButton';
+export { default as DevTools } from './components/DevTools'
 export { default as Settings } from './dev-settings';
 
 export {
