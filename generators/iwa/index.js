@@ -29,7 +29,8 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    const path = dir => this.destinationPath(`packages/${this.props.name}-iwa/${dir}`);
+    const name = this.props.name.replace('-iwa', '');
+    const path = dir => this.destinationPath(`packages/${name}-iwa/${dir}`);
 
     this.fs.copy(this.templatePath('public'), path('public'));
     this.fs.copy(this.templatePath('src'), path('src'));
@@ -55,7 +56,7 @@ module.exports = class extends Generator {
     updateStoriesConfig(
       this.fs,
       this.destinationPath('./.storybook/config.js'),
-      `${this.props.name}-iwa`
+      `${name}-iwa`
     );
   }
 
