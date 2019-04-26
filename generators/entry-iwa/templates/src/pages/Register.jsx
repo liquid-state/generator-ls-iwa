@@ -13,8 +13,8 @@ import {
   PinnedToBottom,
   Link,
 } from '@project/common';
-import { registrationSubmitted } from '../../redux/actions/registration';
-import { register } from '../../assets';
+import { registrationSubmitted } from '../redux/actions/registration';
+import { register } from '../assets';
 
 class Register extends React.Component {
   state = {
