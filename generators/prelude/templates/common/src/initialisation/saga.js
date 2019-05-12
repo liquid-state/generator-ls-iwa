@@ -22,8 +22,7 @@ import { initialisationIsComplete, initialisationInProgress } from './reducer';
 // Add each of your IWAs here so that they can access credentials.
 const setPermissionsForKey = key => (
   key
-    .addWritePermission('iwa', 'login')
-    .addWritePermission('iwa', 'registration')
+    .addWritePermission('iwa', 'entry')
     .addWritePermission('iwa', 'home')
     .addReadPermission('native', 'library')
 );
