@@ -6,7 +6,7 @@ import {
   race,
   put,
   call,
-  take,
+  take
 } from 'redux-saga/effects';
 import { Messages } from '@liquid-state/iwa-core';
 import IdentityPlugin from '@liquid-state/iwa-identity';
@@ -23,7 +23,7 @@ import {
   REGISTRATION_VALIDATION_SUBMITTED,
   REGISTRATION_VALIDATION_REQUIRED,
   REGISTRATION_VALIDATION_RESEND,
-  TOU_ACCEPTED,
+  TOU_ACCEPTED
 } from '../actions/registration';
 
 export default function* registrationSaga() {
@@ -42,7 +42,7 @@ function* onRegistrationSubmitted(action) {
   while (true) {
     const { validation, resend } = yield race({
       validation: take(REGISTRATION_VALIDATION_SUBMITTED),
-      resend: take(REGISTRATION_VALIDATION_RESEND),
+      resend: take(REGISTRATION_VALIDATION_RESEND)
     });
     if (resend) {
       yield call(authenticator.resendRegistrationCode.bind(authenticator));
@@ -55,10 +55,11 @@ function* onRegistrationSubmitted(action) {
       break;
     }
   }
-  const identity = yield call(doInitialLogin, authenticator, idp);
-  yield call(finaliseRegistration, app, identity);
-  yield call(app.communicator.send.bind(app.communicator), Messages.app.reset());
+
+  yield call(finaliseRegistration, app);
   yield put(registrationSuccess());
+
+  yield call(app.communicator.send.bind(app.communicator), Messages.app.reset());
 }
 
 function* onVerificationRequired() {
@@ -81,7 +82,7 @@ function* doRegistration(authenticator, { payload: { email, password } }) {
     const registrationDetails = {
       username: email.replace('@', '*'),
       email,
-      password,
+      password
     };
 
     yield call(authenticator.register.bind(authenticator), registrationDetails);
@@ -98,7 +99,8 @@ function* doRegistration(authenticator, { payload: { email, password } }) {
           error = 'Your password does not match the password complexity requirements.';
           break;
         default:
-          error = 'Something has gone wrong during registration, you can try again, or contact support if the issue continues.';
+          error =
+            'Something has gone wrong during registration, you can try again, or contact support if the issue continues.';
           break;
       }
     }
@@ -111,7 +113,11 @@ function* doValidation(authenticator, { payload: { code } }) {
     yield call(authenticator.confirmRegistration.bind(authenticator), code);
     return true;
   } catch (e) {
-    yield put(registrationValidationFailed('Registration validation failed. Please ensure the code you entered is correct.'));
+    yield put(
+      registrationValidationFailed(
+        'Registration validation failed. Please ensure the code you entered is correct.'
+      )
+    );
   }
   return false;
 }
@@ -120,21 +126,30 @@ function* doInitialLogin(authenticator, idp) {
   const { credentials } = yield select(state => ({
     credentials: {
       username: state.registration.credentials.email,
-      password: state.registration.credentials.password,
-    },
+      password: state.registration.credentials.password
+    }
   }));
   const user = yield call(authenticator.login.bind(authenticator), credentials);
   const cognito = idp.forService('cognito');
   return yield call(cognito.update.bind(cognito), user.identity, user.credentials);
 }
 
-function* finaliseRegistration(app, cognitoIdentity) {
-  const ubiquityClient = yield call(app.use, UbiquityPlugin);
+function* finaliseRegistration(app) {
+  const uisClient = UISClient(app);
   try {
-    yield call(ubiquityClient.register, cognitoIdentity.identifiers.get('sub'));
+    yield call(uisClient.register);
+  } catch (e) {
+    console.error('Failed to register with the UIS');
+  }
+  const ubiquityClient = yield call(app.use, UbiquityPlugin);
+  const ubiIDP = app.use(IdentityPlugin).forService('ubiquity');
+  const ubiIdentity = yield call(ubiIDP.getIdentity.bind(ubiIDP));
+  try {
+    yield call(ubiquityClient.register, ubiIdentity.identifiers.get('sub'));
   } catch (e) {
     console.error('Error registering with Ubiquity');
   }
+
   const profile = yield select(state => state.registration.personalisation);
   yield call(ubiquityClient.setProfile, profile);
 }
