@@ -13,7 +13,7 @@ module.exports = class extends Generator {
     return this.prompt([
       {
         type: 'input',
-        name: 'name',
+        name: 'iwaname',
         message: 'Your new IWA name (This should be a short slug)',
         store: true
       },
@@ -29,7 +29,9 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    const path = dir => this.destinationPath(`packages/${this.props.name}-iwa/${dir}`);
+    const name = this.props.iwaname.replace('-iwa', '');
+    const props = { ...this.props, name };
+    const path = dir => this.destinationPath(`packages/${name}-iwa/${dir}`);
 
     this.fs.copy(this.templatePath('public'), path('public'));
     this.fs.copy(this.templatePath('src'), path('src'));
@@ -37,25 +39,17 @@ module.exports = class extends Generator {
     this.fs.copyTpl(
       this.templatePath('stories/index.js'),
       path('stories/index.js'),
-      this.props
+      props
     );
 
-    this.fs.copyTpl(
-      this.templatePath('package.json.ejs'),
-      path('package.json'),
-      this.props
-    );
-    this.fs.copyTpl(
-      this.templatePath('webapp.json.ejs'),
-      path('src/webapp.json'),
-      this.props
-    );
+    this.fs.copyTpl(this.templatePath('package.json.ejs'), path('package.json'), props);
+    this.fs.copyTpl(this.templatePath('webapp.json.ejs'), path('src/webapp.json'), props);
 
     // Update the list of imported stories by reading the current file and applying a code transform.
     updateStoriesConfig(
       this.fs,
       this.destinationPath('./.storybook/config.js'),
-      `${this.props.name}-iwa`
+      `${name}-iwa`
     );
   }
 
