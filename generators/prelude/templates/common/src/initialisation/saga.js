@@ -7,7 +7,6 @@ import {
   select,
   take,
 } from 'redux-saga/effects';
-import apiGatewayFactory from 'aws-api-gateway-client';
 import IdentityPlugin, { JWTProvider, IdentityStore } from '@liquid-state/iwa-identity';
 import KeyValuePlugin from '@liquid-state/iwa-keyvalue';
 import { configureCognito } from '@liquid-state/iwa-cognito-identity';
@@ -17,41 +16,30 @@ import {
   initialisationComplete,
   INITIALISATION_COMPLETE,
 } from './actions';
+import UISClient from '../uis';
 import { initialisationIsComplete, initialisationInProgress } from './reducer';
 
 // Add each of your IWAs here so that they can access credentials.
 const setPermissionsForKey = key => (
   key
-    .addWritePermission('iwa', 'login')
-    .addWritePermission('iwa', 'registration')
+    .addWritePermission('iwa', 'entry')
     .addWritePermission('iwa', 'home')
     .addReadPermission('native', 'library')
 );
 
-const buildRefreshFunction = (app, pipId) => async () => {
-  const identity = await app.use(IdentityPlugin).forService('cognito').getIdentity();
-  if (!identity.isAuthenticated) {
-    return { identity: null, credentials: null };
-  }
-  const {
-    accessKeyId: accessKey,
-    secretAccessKey: secretKey,
-    sessionToken,
-  } = identity.credentials;
-  const { UIS_URL, AWS_REGION } = await app.configuration('UIS_URL', 'AWS_REGION');
-  const gateway = apiGatewayFactory.newClient({
-    invokeUrl: UIS_URL,
-    accessKey,
-    secretKey,
-    sessionToken,
-    region: AWS_REGION,
-  });
-  const pathTemplate = 'user/pip/{pip_id}/';
-  const params = { pip_id: pipId };
-  const extraParams = { queryParams: { with_jwt: true } };
-  const { data: { jwt } } = await gateway.invokeApi(params, pathTemplate, 'GET', extraParams);
-  return { identity: jwt, credentials: { jwt } };
-};
+const buildRefreshFunction = (() => {
+  // Cache is actually a promise which will resolve to the result of getTokens
+  let cache = null;
+  let lastRefresh = null;
+  return (uisClient, pipId) => async () => {
+    if (!lastRefresh || lastRefresh < Date.now() - 3600) {
+      lastRefresh = Date.now();
+      cache = uisClient.getTokens();
+    }
+    const { data: { [pipId]: jwt } } = await cache;
+    return { identity: jwt, credentials: { jwt } };
+  };
+})();
 
 
 export default () => takeEvery(INITIALISE, initialise);
@@ -90,13 +78,14 @@ function* initialise() {
   const idManager = app.use(IdentityPlugin);
 
   const idStore = new IdentityStore(kv, { setPermissionsForKey });
+  const client = UISClient(app);
   idManager.addProvider(
     'ubiquity',
-    new JWTProvider('pip:ubiquity', idStore, buildRefreshFunction(app, 'ubiquity')),
+    new JWTProvider('pip:ubiquity', idStore, buildRefreshFunction(client, 'ubiquity')),
   );
   idManager.addProvider(
     'document-search',
-    new JWTProvider('pip:document-search', idStore, buildRefreshFunction(app, 'document-search')),
+    new JWTProvider('pip:document-search', idStore, buildRefreshFunction(client, 'document-search')),
   );
   yield put(initialisationComplete());
 }
