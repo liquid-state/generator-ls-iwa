@@ -91,9 +91,10 @@ class Register extends React.Component {
       termsAndConditionsAccepted,
       loading,
     } = this.props;
-    const disableSubmit = typeof getFieldError('username') !== 'undefined' || !getFieldValue('username')
+    const disableSubmit = typeof getFieldError('email') !== 'undefined' || !getFieldValue('email')
           || typeof getFieldError('password') !== 'undefined' || !getFieldValue('password')
-          || typeof getFieldError('confirm') !== 'undefined' || !getFieldValue('confirm');
+          || typeof getFieldError('confirm') !== 'undefined' || !getFieldValue('confirm')
+          || typeof getFieldError('terms-and-conditions') !== 'undefined' || !getFieldValue('terms-and-conditions');
     return (
       <Container
         fixed
