@@ -26,7 +26,7 @@ Customising a theme should in most cases come down to re-defining variables. You
 
 ### variables.less
 
-You can find an example of available variables [here](https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less) and additionally the default variables for ls-ui-kit are [here](https://github.com/liquid-state/ls-ui-kit/blob/master/src/variables.less)
+You can find an example of available variables [here](https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less) and additionally the default variables for ls-ui-kit are [here](https://github.com/liquid-state/ls-ui-kit/blob/master/packages/ui-kit/src/variables.less)
 
 You can use LESS code to re-define variables in the variables.less file.
 
