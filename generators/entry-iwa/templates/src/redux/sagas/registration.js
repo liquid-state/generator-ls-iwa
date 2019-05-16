@@ -13,6 +13,7 @@ import IdentityPlugin from '@liquid-state/iwa-identity';
 import UbiquityPlugin from '@liquid-state/ubiquity-client/dist/plugin';
 import { message } from 'antd';
 import { getAuthenticator } from '@liquid-state/iwa-cognito-identity';
+import { UISClient } from '@project/common';
 import {
   registrationSuccess,
   registrationValidationFailed,
@@ -56,6 +57,7 @@ function* onRegistrationSubmitted(action) {
     }
   }
 
+  yield call(doInitialLogin, authenticator, idp);
   yield call(finaliseRegistration, app);
   yield put(registrationSuccess());
 
