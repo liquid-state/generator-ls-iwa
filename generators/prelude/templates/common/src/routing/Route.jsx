@@ -7,16 +7,13 @@ export default class Route extends PureComponent {
   // Extracted from react-router.
   static propTypes = {
     children: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
-    component: PropTypes.node,
+    component: PropTypes.func,
     exact: PropTypes.bool,
     location: PropTypes.object,
-    path: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.arrayOf(PropTypes.string),
-    ]),
+    path: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
     render: PropTypes.func,
     sensitive: PropTypes.bool,
-    strict: PropTypes.bool,
+    strict: PropTypes.bool
   };
 
   static defaultProps = {
@@ -27,13 +24,13 @@ export default class Route extends PureComponent {
     path: undefined,
     render: undefined,
     sensitive: false,
-    strict: false,
+    strict: false
   };
 
   render() {
     return (
       <IWARouterContext.Consumer>
-        {(router) => {
+        {router => {
           let { path, ...props } = this.props;
           if (router) {
             if (Array.isArray(path)) {
