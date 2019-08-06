@@ -4,6 +4,7 @@ import { Icon } from 'antd';
 
 import './style.less';
 
+// eslint-disable-next-line react/prop-types
 export default ({ children, ...props }) => (
   <Button {...props} className="nav-button">
     {children}

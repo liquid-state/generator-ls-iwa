@@ -20,7 +20,7 @@ export default function* session() {
 const createMinimumDelay = (d = 3000) => {
   const startTime = Date.now();
   // eslint-disable func-names
-  return function* (action) {
+  return function* minDelay(action) {
     const endTime = Date.now();
     yield call(delay, d - (endTime - startTime));
     yield action;
