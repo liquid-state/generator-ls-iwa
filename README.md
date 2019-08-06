@@ -40,7 +40,7 @@ This is the process to update dependencies:
 
 - ensure all dependencies and dev dependencies listed in `package.json` are pinned to their major versions (i.e. start with a caret "^")
 - run `yarn outdated`
-- review the dependencies marked in red or yellow and the impact that an update to the latest version minor version would have on the code.
+- review the dependencies and the impact that an update to the latest version minor version indicated in the "Wanted" column would have on the code.
 - run `yarn upgrade`
 
 ## License
