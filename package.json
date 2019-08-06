@@ -1,6 +1,6 @@
 {
   "name": "generator-ls-iwa",
-  "version": "1.3.7",
+  "version": "1.3.9",
   "description": "A Yeoman generator for creating Liquid State Integrated Web Apps (IWAs)",
   "homepage": "https://www.liquid-state.com",
   "author": {

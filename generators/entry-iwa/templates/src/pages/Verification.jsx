@@ -1,17 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Form, Input } from 'antd';
+import { Form, Input, Alert } from 'antd';
 import { Button } from '@liquid-state/ui-kit';
-import {
-  Container,
-  ContentPadding,
-  PinnedToBottom,
-} from '@project/common';
+import { Container, ContentPadding, PinnedToBottom } from '@project/common';
 import { registrationValidationSubmitted } from '../redux/actions/registration';
 import { register } from '../assets';
 
-const handleSubmit = (validateFieldsAndScroll, onSubmit) => (e) => {
+const handleSubmit = (validateFieldsAndScroll, onSubmit) => e => {
   e.preventDefault();
   validateFieldsAndScroll((err, values) => {
     if (!err) {
@@ -21,48 +17,44 @@ const handleSubmit = (validateFieldsAndScroll, onSubmit) => (e) => {
 };
 
 const Verification = ({
-  form: {
-    validateFieldsAndScroll,
-    getFieldDecorator,
-    getFieldError,
-    getFieldValue,
-  },
+  form: { validateFieldsAndScroll, getFieldDecorator, getFieldError, getFieldValue },
   onSubmit,
   loading,
-  error,
+  error
 }) => {
-  const disableSubmit = typeof getFieldError('code') !== 'undefined' || !getFieldValue('code');
+  const disableSubmit =
+    typeof getFieldError('code') !== 'undefined' || !getFieldValue('code');
   return (
     <Container fixed noPadding className="onboarding">
       <img src={register} alt="" />
       <ContentPadding>
         <h1>Verification</h1>
         <p>
-          We&apos;ve sent a verification code to the email you entered in the previous step.
-          Please check your email for the code and enter it here once you have it.
+          We&apos;ve sent a verification code to the email you entered in the previous
+          step. Please check your email for the code and enter it here once you have it.
         </p>
         <Form onSubmit={handleSubmit(validateFieldsAndScroll, onSubmit)}>
-          { error ? <Alert type="error" message={error} showIcon /> : null }
+          {error ? <Alert type="error" message={error} showIcon /> : null}
           <Form.Item label="Verification code">
             {getFieldDecorator('code', {
               rules: [
                 {
                   required: true,
-                  message: 'Your verification code is required to continue',
+                  message: 'Your verification code is required to continue'
                 },
                 {
                   len: 6,
                   pattern: /^[0-9]*$/, // 0-9 only
-                  message: 'Your verification code should be 6 digits in length.',
-                },
-              ],
-              })(
+                  message: 'Your verification code should be 6 digits in length.'
+                }
+              ]
+            })(
               <Input
                 maxLength={6}
                 placeholder="Enter your verification code"
                 pattern="\d*"
                 inputMode="numeric"
-                />,
+              />
             )}
           </Form.Item>
           <PinnedToBottom>
@@ -78,33 +70,34 @@ const Verification = ({
           </PinnedToBottom>
         </Form>
       </ContentPadding>
-   </Container>
+    </Container>
   );
-}
+};
 
 Verification.propTypes = {
   form: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool,
-  error: PropTypes.string,
+  error: PropTypes.string
 };
 
 Verification.defaultProps = {
   loading: false,
-  error: null,
+  error: null
 };
 
 const WrappedVerification = Form.create()(Verification);
 
-export {
-  WrappedVerification as Verification,
-};
+export { WrappedVerification as Verification };
 
 const mapState = ({ registration }) => ({
   loading: registration.submitting,
-  error: registration.error,
+  error: registration.error
 });
 
-export default connect(mapState, {
-  onSubmit: registrationValidationSubmitted,
-})(WrappedVerification);
+export default connect(
+  mapState,
+  {
+    onSubmit: registrationValidationSubmitted
+  }
+)(WrappedVerification);
